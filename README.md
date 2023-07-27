@@ -1,8 +1,50 @@
+# React-Native-Assignment
+
+## Screenshots
+
+### Home Screen
+
+<img src="./assets/screenshots/home.jpg" height="500" />
+
+### Drawer
+
+<img src="./assets/screenshots/drawer.jpg" height="500" />
+
+### Hello World
+
+<img src="./assets/screenshots/helloworld.jpg" height="500" />
+
+### Increment Decrement
+
+<img src="./assets/screenshots/increment_decrement.jpg" height="500" />
+
+### Scroll View
+
+<img src="./assets/screenshots/scrollview.jpg" height="500" />
+
+### Flat List
+
+<img src="./assets/screenshots/flatlist.jpg" height="500" />
+
+### Timer
+
+<img src="./assets/screenshots/counter.jpg" height="500" />
+
+### Fetch
+
+<img src="./assets/screenshots/fetch.jpg" height="500" />
+
+### Async Storage
+
+<img src="./assets/screenshots/async_storage.jpg" height="500" />
+
+<img src="./assets/screenshots/async_storage_noData.jpg" height="500" />
+
 This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
 
 # Getting Started
 
->**Note**: Make sure you have completed the [React Native - Environment Setup](https://reactnative.dev/docs/environment-setup) instructions till "Creating a new application" step, before proceeding.
+> **Note**: Make sure you have completed the [React Native - Environment Setup](https://reactnative.dev/docs/environment-setup) instructions till "Creating a new application" step, before proceeding.
 
 ## Step 1: Start the Metro Server
 
@@ -77,4 +119,3 @@ To learn more about React Native, take a look at the following resources:
 - [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
 - [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
 - [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
-# react-native-assignment
