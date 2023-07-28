@@ -1,5 +1,11 @@
 import React, {useState} from 'react';
-import {FlatList, StyleSheet, Text} from 'react-native';
+import {
+  ActivityIndicator,
+  FlatList,
+  StyleSheet,
+  Text,
+  View,
+} from 'react-native';
 import data from './Data';
 import Card from './Card';
 
@@ -7,17 +13,15 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: '#23272f',
   },
-  btn: {
-    backgroundColor: '#03fcba',
-  },
-  btnTxt: {
-    color: '#000',
-  },
   text: {
-    color: '#000',
     textAlign: 'center',
     padding: 10,
-    backgroundColor: '#f24e4e',
+    flexDirection: 'column',
+    color: '#fff',
+  },
+  view: {
+    backgroundColor: '#000',
+    paddingTop: 10,
   },
 });
 
@@ -50,7 +54,14 @@ const FlatListEg = () => {
         onEndReachedThreshold={0.5}
         onEndReached={loadingMore || limit > data.length ? null : loadMore}
         ListFooterComponent={
-          loadingMore && <Text style={styles.text}>Loading More...</Text>
+          loadingMore && (
+            <View style={styles.view}>
+              <>
+                <ActivityIndicator color="white" />
+              </>
+              <Text style={styles.text}>Loading More...</Text>
+            </View>
+          )
         }
       />
     </>
