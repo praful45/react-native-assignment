@@ -52,7 +52,7 @@ const FlatListEg = () => {
         )}
         keyExtractor={item => item.key}
         onEndReachedThreshold={0.5}
-        onEndReached={loadingMore || limit > data.length ? null : loadMore}
+        onEndReached={loadingMore || limit > data.length ? null : loadMore} //returns null if loadingMore=true so that loadMore will not be called
         ListFooterComponent={
           loadingMore && (
             <View style={styles.view}>

@@ -23,22 +23,37 @@ const styles = StyleSheet.create({
     color: '#fff',
     borderRadius: 8,
   },
+  text: {
+    textAlign: 'center',
+    padding: 10,
+    flexDirection: 'column',
+    color: '#fff',
+  },
 });
 
+const LIMIT = 20;
+
 const RandomApi = () => {
-  const [data, setData] = useState({});
+  const [data, setData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [loadingMore, setLoadingMore] = useState(false);
+  const [start, setStart] = useState(0);
 
   const getData = () => {
+    console.log(start, LIMIT);
+    console.log(data);
     try {
+      setLoadingMore(true);
       setTimeout(async () => {
         const response = await fetch(
-          'https://jsonplaceholder.typicode.com/todos',
+          `https://jsonplaceholder.typicode.com/todos?_start=${start}&_limit=${LIMIT}`,
         );
         const json = await response.json();
-        setData(json);
+        setData([...data, ...json]);
+        setStart(start + 20);
+        setLoadingMore(false);
         setIsLoading(false);
-      }, 3000);
+      }, 2000);
     } catch (error) {
       console.log(error.message);
     }
@@ -51,20 +66,38 @@ const RandomApi = () => {
       {isLoading ? (
         <ActivityIndicator size="large" color="red" />
       ) : (
-        <FlatList
-          data={data}
-          renderItem={({item}) => (
-            <View style={styles.dataView}>
-              <Text>Id: {item.id}</Text>
-              <Text>Task: {item.title}</Text>
-              <Text>
-                Status: {item.completed ? 'Completed' : 'Not Completed'}
-              </Text>
-              <Text> </Text>
-            </View>
-          )}
-          showsVerticalScrollIndicator={false}
-        />
+        <>
+          <FlatList
+            data={data}
+            renderItem={({item}) => (
+              <View style={styles.dataView}>
+                <Text>Id: {item.id}</Text>
+                <Text>Task: {item.title}</Text>
+                <Text>
+                  Status: {item.completed ? 'Completed' : 'Not Completed'}
+                </Text>
+              </View>
+            )}
+            keyExtractor={item => item.id}
+            showsVerticalScrollIndicator={false}
+            onEndReachedThreshold={0.5}
+            onEndReached={
+              loadingMore
+                ? null
+                : () => {
+                    getData();
+                  }
+            }
+            ListFooterComponent={
+              loadingMore && (
+                <View>
+                  <ActivityIndicator />
+                  <Text style={styles.text}>Loading More...</Text>
+                </View>
+              )
+            }
+          />
+        </>
       )}
     </View>
   );
