@@ -38,10 +38,9 @@ const RandomApi = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [loadingMore, setLoadingMore] = useState(false);
   const [start, setStart] = useState(0);
+  const [canFetch, setCanFetch] = useState(true);
 
   const getData = () => {
-    console.log(start, LIMIT);
-    console.log(data);
     try {
       setLoadingMore(true);
       setTimeout(async () => {
@@ -49,11 +48,16 @@ const RandomApi = () => {
           `https://jsonplaceholder.typicode.com/todos?_start=${start}&_limit=${LIMIT}`,
         );
         const json = await response.json();
-        setData([...data, ...json]);
+        if (!json.length) {
+          setCanFetch(false);
+        }
+        if (json.length) {
+          setData([...data, ...json]);
+        }
         setStart(start + 20);
         setLoadingMore(false);
         setIsLoading(false);
-      }, 2000);
+      }, 1000); //artificial delay
     } catch (error) {
       console.log(error.message);
     }
@@ -82,7 +86,7 @@ const RandomApi = () => {
             showsVerticalScrollIndicator={false}
             onEndReachedThreshold={0.5}
             onEndReached={
-              loadingMore
+              loadingMore || !canFetch //either loadingMore=true or CanFetch=false will return null
                 ? null
                 : () => {
                     getData();
