@@ -5,7 +5,9 @@ import {
   ActivityIndicator,
   FlatList,
   StyleSheet,
+  Alert,
 } from 'react-native';
+import {FetchData} from './utils/fetchData';
 
 const styles = StyleSheet.create({
   view: {
@@ -44,20 +46,18 @@ const RandomApi = () => {
     try {
       setLoadingMore(true);
       setTimeout(async () => {
-        const response = await fetch(
-          `https://jsonplaceholder.typicode.com/todos?_start=${start}&_limit=${LIMIT}`,
-        );
-        const json = await response.json();
-        if (!json.length) {
+        const resData = await FetchData(start, LIMIT);
+        if (!resData.length) {
+          Alert.alert('Limit Reached', 'No More Data Left to Fetch!!');
           setCanFetch(false);
         }
-        if (json.length) {
-          setData([...data, ...json]);
+        if (resData.length) {
+          setData([...data, ...resData]);
         }
-        setStart(start + 20);
+        setStart(start + LIMIT);
         setLoadingMore(false);
         setIsLoading(false);
-      }, 1000); //artificial delay
+      }, 500); //artificial delay
     } catch (error) {
       console.log(error.message);
     }
